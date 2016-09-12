@@ -1,0 +1,8 @@
+.MapWidget {
+  position: absolute;
+  left: 25%;
+  width: 75%;
+  top: 0;
+  height: 100%;
+  background: white;
+}
