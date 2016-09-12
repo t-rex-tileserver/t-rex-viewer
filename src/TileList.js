@@ -9,6 +9,9 @@ class TileList extends Component {
     super(props);
     this.state = { tiles: [] };
     this.renderTileListEntries = this.renderTileListEntries.bind(this);
+  }
+
+  componentDidMount() {
     fetch('http://localhost:6767/index.json')
       .then(function(response){ return response.json() })
       .then(function(obj){ this.populateTileList(obj); }.bind(this));
@@ -17,6 +20,7 @@ class TileList extends Component {
   render() {
     return (
       <div className="TileList">
+      <div className="TileListTitle">Tile sets:</div>
       {this.renderTileListEntries()}
       </div>
     );
@@ -24,7 +28,7 @@ class TileList extends Component {
 
   renderTileListEntries() {
     return this.state.tiles.map(entry => (
-    <TileListEntry name={entry.name} />
+    <TileListEntry name={entry.name} app={this.props.app} />
   ));
   }
 

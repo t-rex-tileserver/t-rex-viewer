@@ -1,0 +1,18 @@
+.TileListEntry {
+  color: #9da5b4;
+  font-family: sans;
+  font-size: 10pt;
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid transparent;
+  cursor: default;
+}
+
+.TileListEntry:hover {
+  border: 1px solid #9da5b4;
+}
+
+.ActiveTileListEntry {
+  color: white;
+  background-color: #31363f;
+}
