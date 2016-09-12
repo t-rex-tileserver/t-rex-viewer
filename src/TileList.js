@@ -8,9 +8,10 @@ class TileList extends Component {
   constructor(props) {
     super(props);
     this.state = { tiles: [] };
-    fetch('http://localhost:6767/index.json', {mode: 'no-cors'})
+    this.renderTileListEntries = this.renderTileListEntries.bind(this);
+    fetch('http://localhost:6767/index.json')
       .then(function(response){ return response.json() })
-      .then(function(obj){ this.populateTileList(); });
+      .then(function(obj){ this.populateTileList(obj); }.bind(this));
   }
 
   render() {
@@ -23,14 +24,14 @@ class TileList extends Component {
 
   renderTileListEntries() {
     return this.state.tiles.map(entry => (
-    <TileListEntry name={entry['name]']} />
+    <TileListEntry name={entry.name} />
   ));
   }
 
   populateTileList(object) {
     var listEntries = [];
-    object['tilesets'].foreach((tileset) => {
-      listEntries.push({'name': tileset['name'], 'tilejson': tileset['tilejson']});
+    object.tilesets.forEach((tileset) => {
+      listEntries.push({'name': tileset.name, 'tilejson': tileset.tilejson});
     });
     this.setState({tiles: listEntries});
   }
