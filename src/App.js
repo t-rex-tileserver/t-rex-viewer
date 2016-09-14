@@ -3,6 +3,7 @@ import './App.css';
 import TileList from './TileList';
 import OpenLayersMapWidget from './MapWidgets/OpenLayersMapWidget';
 import XRayMapWidget from './MapWidgets/XRayMapWidget';
+import InspectorMapWidget from './MapWidgets/InspectorMapWidget';
 import TitleBar from './TitleBar';
 
 class App extends Component {
@@ -45,6 +46,11 @@ class App extends Component {
                                    zoom={this.state.zoom}/>);
     } else if(this.state.viewer === 'X-Ray') {
       return (<XRayMapWidget activeTileset={this.state.tileset}
+                             storeExtent={this.storeExtent.bind(this)}
+                             center={this.state.center}
+                             zoom={this.state.zoom}/>);
+    } else if(this.state.viewer === 'Inspector') {
+      return (<InspectorMapWidget activeTileset={this.state.tileset}
                              storeExtent={this.storeExtent.bind(this)}
                              center={this.state.center}
                              zoom={this.state.zoom}/>);
