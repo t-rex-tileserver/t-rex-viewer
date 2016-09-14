@@ -4,31 +4,41 @@
   top: 0;
   right: 0;
   height: 32px;
-  background-color: #21252b;
-  color: white;
+  background-color: #1b1d23;
+  color: #9da5b4;
   font: bold 10pt sans;
   text-align: center;
   line-height: 32px;
   z-index: 1;
 }
 
+.ViewerSelector:first-child {
+  border-radius: 0px 5px 5px 0px;
+  margin-right: 3px;
+}
+
+.ViewerSelector:last-child {
+  border-radius: 5px 0px 0px 5px;
+  margin-left: 3px;
+}
+
 .ViewerSelector {
   float: right;
-  border-radius: 5px;
   height: 22px;
-  margin: 2px;
+  margin: 3px 0px 3px 1px;
   line-height: 22px;
   padding: 2px 10px;
-  background-color: #528bff;
-  border: 1px solid #528bff;
+  background-color: #31363f;
   font-weight: normal;
   cursor: default;
+  color: #9da5b4;
 }
 
 .ViewerSelector:hover {
-  background-color: #CCCCFF;
+  background-color: #414753;
 }
 
-.ActiveViewerSelector {
-  background-color: #BBBBFF;
+.ActiveViewerSelector, .ActiveViewerSelector:hover {
+  background-color: #528bff;
+  color: white;
 }

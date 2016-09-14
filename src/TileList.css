@@ -8,7 +8,10 @@
 }
 
 .TileListTitle {
-  font: bold 12pt sans;
+  font: bold 10pt sans;
   color: white;
-  margin: 5px;
+  padding: 5px;
+  line-height: 22px;
+  background: #1b1d23;
+  color: #9da5b4;
 }

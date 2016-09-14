@@ -19,7 +19,7 @@ class TileList extends Component {
   render() {
     return (
       <div className="TileList">
-      <div className="TileListTitle">Tile sets:</div>
+      <div className="TileListTitle">Tile sets</div>
       {this.renderTileListEntries()}
       </div>
     );
