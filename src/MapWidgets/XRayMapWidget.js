@@ -68,8 +68,8 @@ class XRayMapWidget extends Component {
     });
     this.map.addLayer(layer);
     this.map.setView(new ol.View({
-      center: [0, 0],
-      zoom: 2
+      center: this.props.center,
+      zoom: this.props.zoom
     }));
   }
 

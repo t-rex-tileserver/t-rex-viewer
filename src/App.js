@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   setTileset(tileset) {
-    this.setState({tileset: tileset});
+    this.setState({center: [0, 0], zoom: 2, tileset: tileset});
   }
 
   setViewer(viewer) {
