@@ -5,7 +5,7 @@ class XRayMapWidget extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {props: {}}
+    this.state = {attribs: {}}
     this.loadedTileset = "";
   }
 
@@ -13,9 +13,7 @@ class XRayMapWidget extends Component {
     return (
       <div className="XRayContainer">
         <div className="XRayMapWidget" ref="MapWidget"></div>
-        <div className="XRayPropertiesList" ref="PropertiesList">
-        {this.renderProperties()}
-        </div>
+        {this.renderAttributes()}
       </div>
     )
   }
@@ -29,7 +27,7 @@ class XRayMapWidget extends Component {
         zoom: 2
       })
     });
-    this.map.on('pointermove', this.fetchProperties.bind(this));
+    this.map.on('pointermove', this.fetchAttributes.bind(this));
     this.updateMap();
   }
 
@@ -70,19 +68,26 @@ class XRayMapWidget extends Component {
     this.map.addLayer(layer);
   }
 
-  fetchProperties(e) {
-    var props = {};
+  fetchAttributes(e) {
+    var attribs = {};
     this.map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
-      props = Object.assign(props, feature.getProperties());
+      attribs = Object.assign(attribs, feature.getProperties());
     });
-    this.setState({props: props});
+    this.setState({attribs: attribs});
   }
 
-  renderProperties() {
-    var self = this;
-    return Object.keys(this.state.props).map(key =>
-      (<div>{key}: {self.state.props[key]} </div>)
-    );
+  renderAttributes() {
+    if(Object.keys(this.state.attribs).length > 0)
+    {
+      var self = this;
+      return (
+        <div className="XRayAttributesList" ref="PropertiesList">
+        {Object.keys(this.state.attribs).map(key =>
+          (<div>{key}: {self.state.attribs[key]} </div>)
+        )}
+        </div>
+      );
+    }
   }
 
 }
