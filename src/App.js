@@ -8,7 +8,12 @@ import TitleBar from './TitleBar';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {tileset: null, viewer: 'OpenLayers'};
+    this.state = {
+      tileset: null,
+      viewer: 'OpenLayers',
+      center: [0, 0],
+      zoom: 2
+    };
   }
   render() {
     return (
@@ -27,12 +32,22 @@ class App extends Component {
   setViewer(viewer) {
     this.setState({viewer: viewer});
   }
-  
+
+  storeExtent(center, zoom) {
+    this.setState({center: center, zoom: zoom});
+  }
+
   renderMapWidget() {
     if(this.state.viewer === 'OpenLayers') {
-      return (<OpenLayersMapWidget activeTileset={this.state.tileset} />);
+      return (<OpenLayersMapWidget activeTileset={this.state.tileset}
+                                   storeExtent={this.storeExtent.bind(this)}
+                                   center={this.state.center}
+                                   zoom={this.state.zoom}/>);
     } else if(this.state.viewer === 'X-Ray') {
-      return (<XRayMapWidget activeTileset={this.state.tileset} />);
+      return (<XRayMapWidget activeTileset={this.state.tileset}
+                             storeExtent={this.storeExtent.bind(this)}
+                             center={this.state.center}
+                             zoom={this.state.zoom}/>);
     }
     return null;
   }

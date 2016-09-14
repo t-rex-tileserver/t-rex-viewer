@@ -19,11 +19,11 @@ class OpenLayersMapWidget extends Component {
       layers: [],
       target: this.refs.MapWidget,
       view: new ol.View({
-        center: [0, 0],
-        zoom: 2
+        center: this.props.center,
+        zoom: this.props.zoom,
       })
     });
-
+    this.map.on('postrender', this.storeExtent.bind(this));
     this.updateMap();
   }
 
@@ -52,7 +52,15 @@ class OpenLayersMapWidget extends Component {
       })
     });
     this.map.addLayer(layer);
+    this.map.setView(new ol.View({
+      center: [0, 0],
+      zoom: 2
+    }));
   }
+
+  storeExtent(e) {
+    this.props.storeExtent(this.map.getView().getCenter(), this.map.getView().getZoom());
+ }
 
 }
 

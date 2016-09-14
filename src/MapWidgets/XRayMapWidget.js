@@ -23,11 +23,12 @@ class XRayMapWidget extends Component {
       layers: [],
       target: this.refs.MapWidget,
       view: new ol.View({
-        center: [0, 0],
-        zoom: 2
+        center: this.props.center,
+        zoom: this.props.zoom
       })
     });
     this.map.on('pointermove', this.fetchAttributes.bind(this));
+    this.map.on('postrender', this.storeExtent.bind(this));
     this.updateMap();
   }
 
@@ -66,6 +67,10 @@ class XRayMapWidget extends Component {
       })
     });
     this.map.addLayer(layer);
+    this.map.setView(new ol.View({
+      center: [0, 0],
+      zoom: 2
+    }));
   }
 
   fetchAttributes(e) {
@@ -90,6 +95,9 @@ class XRayMapWidget extends Component {
     }
   }
 
+  storeExtent(e) {
+    this.props.storeExtent(this.map.getView().getCenter(), this.map.getView().getZoom());
+ }
 }
 
 export default XRayMapWidget;
