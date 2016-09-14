@@ -8,7 +8,6 @@ class TileList extends Component {
   constructor(props) {
     super(props);
     this.state = { tiles: [] };
-    this.renderTileListEntries = this.renderTileListEntries.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +27,7 @@ class TileList extends Component {
 
   renderTileListEntries() {
     return this.state.tiles.map(entry => (
-    <TileListEntry name={entry.name} app={this.props.app} />
+    <TileListEntry name={entry.name} activeTileset={this.props.activeTileset} setTileset={this.props.setTileset} />
   ));
   }
 

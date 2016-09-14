@@ -1,36 +1,45 @@
 import React, { Component } from 'react';
-import './MapWidget.css';
+import './OpenLayersMapWidget.css';
 
-// http://tech.oyster.com/using-react-and-jquery-together/
+class OpenLayersMapWidget extends Component {
 
-class MapWidget extends Component {
+  constructor(props) {
+    super(props);
+    this.loadedTileset = "";
+  }
 
   render() {
     return (
-      <div className="MapWidget" id="MapWidget" ref="MapWidget"></div>
+      <div className="OpenLayersMapWidget" ref="MapWidget"></div>
     )
   }
+
   componentDidMount() {
     this.map = new ol.Map({
       layers: [],
-      target: 'MapWidget',
+      target: this.refs.MapWidget,
       view: new ol.View({
         center: [0, 0],
         zoom: 2
       })
     });
 
-    this.renderMapWidget();
+    this.updateMap();
   }
+
   componentDidUpdate() {
-    this.renderMapWidget();
+    this.updateMap();
   }
-  renderMapWidget() {
+
+  updateMap() {
+    if(this.props.activeTileset === this.loadedTileset) {
+      return;
+    }
     var self = this;
     this.map.getLayers().forEach(
       function(layer) { self.map.removeLayer(layer); }
     );
-    if(!this.props.tileset) {
+    if(!this.props.activeTileset) {
       return;
     }
     var layer = new ol.layer.VectorTile({
@@ -38,12 +47,13 @@ class MapWidget extends Component {
         format: new ol.format.MVT(),
         tileGrid: ol.tilegrid.createXYZ({maxZoom: 22}),
         tilePixelRatio: 16,
-        url: 'http://127.0.0.1:6767/' + this.props.tileset + '/{z}/{x}/{y}.pbf'
+        url: 'http://127.0.0.1:6767/' + this.props.activeTileset + '/{z}/{x}/{y}.pbf'
       })
     });
     this.map.addLayer(layer);
+    this.loadedTileset = this.props.activeTileset;
   }
 
 }
 
-export default MapWidget;
+export default OpenLayersMapWidget;

@@ -1,8 +1,8 @@
-.MapWidget {
+.OpenLayersMapWidget {
   position: absolute;
   left: 25%;
   width: 75%;
-  top: 0;
-  height: 100%;
+  top: 32px;
+  bottom: 0;
   background: white;
 }
