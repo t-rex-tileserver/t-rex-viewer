@@ -16,6 +16,7 @@ class TileListEntry extends Component {
       </div>
     )
   }
+
   setTileset() {
     this.props.setTileset(this.props.name);
   }

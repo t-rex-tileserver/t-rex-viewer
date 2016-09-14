@@ -27,8 +27,8 @@ class TileList extends Component {
 
   renderTileListEntries() {
     return this.state.tiles.map(entry => (
-    <TileListEntry name={entry.name} activeTileset={this.props.activeTileset} setTileset={this.props.setTileset} />
-  ));
+      <TileListEntry name={entry.name} activeTileset={this.props.activeTileset} setTileset={this.props.setTileset} />
+    ));
   }
 
   populateTileList(object) {

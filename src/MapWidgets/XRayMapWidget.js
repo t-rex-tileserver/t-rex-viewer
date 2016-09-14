@@ -86,7 +86,7 @@ class XRayMapWidget extends Component {
     {
       var self = this;
       return (
-        <div className="XRayAttributesList" ref="PropertiesList">
+        <div className="XRayAttributesList">
         {Object.keys(this.state.attribs).map(key =>
           (<div>{key}: {self.state.attribs[key]} </div>)
         )}
