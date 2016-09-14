@@ -39,6 +39,7 @@ class OpenLayersMapWidget extends Component {
     this.map.getLayers().forEach(
       function(layer) { self.map.removeLayer(layer); }
     );
+    this.loadedTileset = this.props.activeTileset;
     if(!this.props.activeTileset) {
       return;
     }
@@ -51,7 +52,6 @@ class OpenLayersMapWidget extends Component {
       })
     });
     this.map.addLayer(layer);
-    this.loadedTileset = this.props.activeTileset;
   }
 
 }
