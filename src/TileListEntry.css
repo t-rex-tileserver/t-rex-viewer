@@ -8,6 +8,13 @@
   cursor: default;
 }
 
+.TileListEntry ul {
+  font-size: 8pt;
+  font-style: italic;
+  margin: 0;
+  color: #727782;
+}
+
 .TileListEntry:hover {
   border: 1px solid #9da5b4;
 }

@@ -11,9 +11,11 @@ class TileListEntry extends Component {
       "ActiveTileListEntry": this.props.activeTileset === this.props.name
     });
     return (
-      <div className={classes} onClick={this.setTileset.bind(this)}>
-        {this.props.name}
-      </div>
+      <div className={classes} onClick={this.setTileset.bind(this)}>{this.props.name}<ul>
+        {this.props.layers.map(entry =>
+          (<li>{entry.name} ({entry.geometry_type})</li>)
+        )}
+      </ul></div>
     )
   }
 
