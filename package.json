@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "jsdoc": "^3.4.2",
     "openlayers": "^3.19.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
@@ -15,6 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-ol": "node node_modules/openlayers/tasks/build.js ol-custom.json node_modules/openlayers/build/ol-custom.js"
   }
 }
