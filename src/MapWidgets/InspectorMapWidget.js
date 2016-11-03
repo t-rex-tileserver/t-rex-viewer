@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var ol = require('openlayers');
 import './InspectorMapWidget.css';
 
 class InspectorMapWidget extends Component {

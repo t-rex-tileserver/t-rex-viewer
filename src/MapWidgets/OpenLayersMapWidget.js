@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+var ol = require('openlayers');
 import './OpenLayersMapWidget.css';
 
 class OpenLayersMapWidget extends Component {
