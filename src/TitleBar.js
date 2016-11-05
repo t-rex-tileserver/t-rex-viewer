@@ -27,7 +27,8 @@ class TitleBar extends Component {
     this.state = {viewers: [
       {name: "Inspector", key: "inspector"},
       {name: "X-Ray", key: "xray"},
-      {name: "OpenLayers", key: "openlayers"}]
+      {name: "OpenLayers", key: "openlayers"},
+      {name: "Mapbox GL", key: "mbgl"}]
     };
   }
 

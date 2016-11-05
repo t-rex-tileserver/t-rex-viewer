@@ -24,7 +24,7 @@ class XRayMapWidget extends Component {
       layers: [],
       target: this.refs.MapWidget,
       view: new ol.View({
-        center: this.props.center,
+        center: ol.proj.fromLonLat(this.props.center),
         zoom: this.props.zoom
       })
     });
@@ -69,7 +69,7 @@ class XRayMapWidget extends Component {
     });
     this.map.addLayer(layer);
     this.map.setView(new ol.View({
-      center: this.props.center,
+      center: ol.proj.fromLonLat(this.props.center),
       zoom: this.props.zoom
     }));
   }
@@ -97,7 +97,8 @@ class XRayMapWidget extends Component {
   }
 
   storeExtent(e) {
-    this.props.storeExtent(this.map.getView().getCenter(), this.map.getView().getZoom());
+    var ll = ol.proj.toLonLat(this.map.getView().getCenter());
+    this.props.storeExtent(ll, this.map.getView().getZoom());
  }
 }
 

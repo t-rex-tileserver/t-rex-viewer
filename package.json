@@ -8,6 +8,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "jsdoc": "^3.4.2",
+    "mapbox-gl": "^0.26.0",
     "openlayers": "^3.19.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2"

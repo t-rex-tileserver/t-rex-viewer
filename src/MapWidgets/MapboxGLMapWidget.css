@@ -1,0 +1,30 @@
+.MbGLContainer  {
+  position: absolute;
+  left: 25%;
+  right: 0;
+  top: 32px;
+  bottom: 0;
+}
+
+.MbGLMapWidget {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  background: white;
+}
+
+.MbGLAttributesList {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background: rgba(33, 37, 43, 0.75);
+  color: #9da5b4;
+  z-index: 1;
+  padding: 5px;
+  border: 1px solid #9da5b4;
+  border-radius: 5px;
+  font: 10pt sans;
+}

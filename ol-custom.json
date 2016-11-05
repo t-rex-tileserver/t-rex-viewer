@@ -27,6 +27,7 @@
     "ol.tilegrid.createXYZ",
     "ol.tilegrid.TileGrid#getTileCoordForCoordAndResolution",
     "ol.proj.get",
+    "ol.proj.toLonLat",
     "ol.proj.fromLonLat"
   ],
   "umd": true,

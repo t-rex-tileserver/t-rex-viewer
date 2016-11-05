@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import TileList from './TileList';
+import MapboxGLMapWidget from './MapWidgets/MapboxGLMapWidget';
 import OpenLayersMapWidget from './MapWidgets/OpenLayersMapWidget';
 import XRayMapWidget from './MapWidgets/XRayMapWidget';
 import InspectorMapWidget from './MapWidgets/InspectorMapWidget';
@@ -39,7 +40,12 @@ class App extends Component {
   }
 
   renderMapWidget() {
-    if(this.state.viewer === 'OpenLayers') {
+    if(this.state.viewer === 'Mapbox GL') {
+      return (<MapboxGLMapWidget activeTileset={this.state.tileset}
+                                   storeExtent={this.storeExtent.bind(this)}
+                                   center={this.state.center}
+                                   zoom={this.state.zoom}/>);
+    } else if(this.state.viewer === 'OpenLayers') {
       return (<OpenLayersMapWidget activeTileset={this.state.tileset}
                                    storeExtent={this.storeExtent.bind(this)}
                                    center={this.state.center}
