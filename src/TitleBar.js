@@ -35,7 +35,7 @@ class TitleBar extends Component {
   render() {
     return (
       <div className="TitleBar">
-      {this.props.activeTileset}
+      t-rex
       {this.renderViewerSelectors()}
       </div>
     );

@@ -17,9 +17,10 @@ class TileList extends Component {
   }
 
   render() {
+    var title = this.props.activeTileset ? "Tile sets:" : "Select tile set:";
     return (
       <div className="TileList">
-      <div className="TileListTitle">Tile sets</div>
+      <div className="TileListTitle">{title}</div>
       {this.renderTileListEntries()}
       </div>
     );
