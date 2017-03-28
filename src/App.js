@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import TileList from './TileList';
+import InfoWidget from './InfoWidget';
 import MapboxGLMapWidget from './MapWidgets/MapboxGLMapWidget';
 import OpenLayersMapWidget from './MapWidgets/OpenLayersMapWidget';
 import XRayMapWidget from './MapWidgets/XRayMapWidget';
@@ -11,20 +12,35 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      tilesets: [],
       tileset: null,
-      viewer: 'OpenLayers',
+      viewer: 'Info',
       center: [0, 0],
       zoom: 2
     };
   }
+
+  componentDidMount() {
+    fetch('http://127.0.0.1:6767/index.json')
+      .then(function(response){ return response.json() })
+      .then(function(obj){ this.populateTileList(obj); }.bind(this));
+  }
+
   render() {
     return (
       <div className="App">
-        <TileList activeTileset={this.state.tileset} setTileset={this.setTileset.bind(this)} />
+        <TileList tilesets={this.state.tilesets} activeTileset={this.state.tileset} setTileset={this.setTileset.bind(this)} />
         <TitleBar activeTileset={this.state.tileset} activeViewer={this.state.viewer} setViewer={this.setViewer.bind(this)} />
         {this.renderMapWidget()}
       </div>
     );
+  }
+
+  populateTileList(object) {
+    this.setState({tilesets: object.tilesets});
+    if (object.tilesets.length > 0) {
+      this.setState({tileset: object.tilesets[0].name});
+    }
   }
 
   setTileset(tileset) {
@@ -40,7 +56,9 @@ class App extends Component {
   }
 
   renderMapWidget() {
-    if(this.state.viewer === 'Mapbox GL') {
+    if(this.state.viewer === 'Info') {
+      return (<InfoWidget tilesets={this.state.tilesets} activeTileset={this.state.tileset}/>);
+    } else if(this.state.viewer === 'Mapbox GL') {
       return (<MapboxGLMapWidget activeTileset={this.state.tileset}
                                    storeExtent={this.storeExtent.bind(this)}
                                    center={this.state.center}

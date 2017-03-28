@@ -28,7 +28,8 @@ class TitleBar extends Component {
       {name: "Inspector", key: "inspector"},
       {name: "X-Ray", key: "xray"},
       {name: "OpenLayers", key: "openlayers"},
-      {name: "Mapbox GL", key: "mbgl"}]
+      {name: "Mapbox GL", key: "mbgl"},
+      {name: "Info", key: "info"}]
     };
   }
 

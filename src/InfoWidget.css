@@ -1,0 +1,9 @@
+.InfoWidget {
+  position: absolute;
+  left: 25%;
+  width: 75%;
+  top: 32px;
+  bottom: 0;
+  padding-left: 20px;
+  background: #bdbdbd;
+}

@@ -58,7 +58,7 @@ class InspectorMapWidget extends Component {
     if(!this.props.activeTileset) {
       return;
     }
-    fetch('http://localhost:6767/' + this.props.activeTileset + '.json')
+    fetch('http://127.0.0.1:6767/' + this.props.activeTileset + '.json')
       .then(function(response){ return response.json() })
       .then(function(obj){ this.initMap(obj); }.bind(this));
   }

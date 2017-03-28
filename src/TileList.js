@@ -7,13 +7,6 @@ class TileList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { tilesets: [] };
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:6767/index.json')
-      .then(function(response){ return response.json() })
-      .then(function(obj){ this.populateTileList(obj); }.bind(this));
   }
 
   render() {
@@ -27,13 +20,9 @@ class TileList extends Component {
   }
 
   renderTileListEntries() {
-    return this.state.tilesets.map(entry => (
+    return this.props.tilesets.map(entry => (
       <TileListEntry name={entry.name} layers={entry.layers} activeTileset={this.props.activeTileset} setTileset={this.props.setTileset} />
     ));
-  }
-
-  populateTileList(object) {
-    this.setState({tilesets: object.tilesets});
   }
 
 }
