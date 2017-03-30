@@ -7,3 +7,13 @@
   padding-left: 20px;
   background: #bdbdbd;
 }
+
+.CodeWidget {
+  width: 90%;
+  height: 200px;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: rgb(0, 0, 0);
+  background: #d6d6d6 none repeat scroll 0% 0%;
+}
