@@ -13,7 +13,7 @@ class TileListEntry extends Component {
     return (
       <div className={classes} onClick={this.setTileset.bind(this)}>{this.props.name}<ul>
         {this.props.layers.map(entry =>
-          (<li>{entry.name} ({entry.geometry_type})</li>)
+          (<li>{entry.name}</li>)
         )}
       </ul></div>
     )
