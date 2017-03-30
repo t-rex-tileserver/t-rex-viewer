@@ -8,15 +8,18 @@ class InfoWidget extends Component {
   }
 
   render() {
+    var tsname = this.props.activeTileset;
     var pbfbaseurl = window.location.protocol + '//' + window.location.host + '/';
-    var pbfurl = pbfbaseurl + this.props.activeTileset + '/{z}/{x}/{y}.pbf';
-    var styleurl = pbfbaseurl + this.props.activeTileset + '.style.json';
+    var pbfurl = pbfbaseurl + tsname + '/{z}/{x}/{y}.pbf';
+    var styleurl = pbfbaseurl + tsname + '.style.json';
     var maputnikurl = 'http://127.0.0.1:6767/maputnik.html?style=' + styleurl;
-    var tileset = this.props.tilesets.find(ts => ts.name === this.props.activeTileset);
-    var layers = typeof tileset !== 'undefined' ? tileset.layers : [];
+    var tileset = this.props.tilesets.filter(function(ts) {
+      return (ts.name === tsname);
+    });
+    var layers = tileset.length > 0 ? tileset[0].layers : [];
     return (
       <div className="InfoWidget">
-        <h2>Tileset: {this.props.activeTileset}</h2>
+        <h2>Tileset: {tsname}</h2>
         <p>Layers:
           <ul>
           {layers.map(entry =>
@@ -28,7 +31,7 @@ class InfoWidget extends Component {
           <ul>
           <li>Tiles: <code>{pbfurl}</code></li>
           <li>Style JSON: <a href={styleurl}>{styleurl}</a></li>
-          <li>Edit Style with <a href={maputnikurl} target="maputnik">Maputnik</a></li>
+          <li>Style map with <a href={maputnikurl} target="maputnik">Maputnik</a></li>
           </ul>
         </p>
         {/*<p>Snippets:
