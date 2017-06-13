@@ -26,6 +26,7 @@ class InfoWidget extends Component {
     var pbfbaseurl = window.location.protocol + '//' + window.location.host + '/';
     var pbfurl = pbfbaseurl + tsname + '/{z}/{x}/{y}.pbf';
     var styleurl = pbfbaseurl + tsname + '.style.json';
+    var tilejsonurl = pbfbaseurl + tsname + '.json';
     var maputnikurl = 'http://127.0.0.1:6767/maputnik.html?style=' + styleurl;
     var tileset = this.props.tilesets.filter(function(ts) {
       return (ts.name === tsname);
@@ -48,6 +49,7 @@ class InfoWidget extends Component {
           <ul>
           <li>Tiles: <code>{pbfurl}</code></li>
           <li>Style JSON: <a href={styleurl}>{styleurl}</a></li>
+          <li>TileJSON: <a href={tilejsonurl}>{tilejsonurl}</a></li>
           <li>Style map with <a href={maputnikurl} target="maputnik">Maputnik</a></li>
           </ul>
         </p>
