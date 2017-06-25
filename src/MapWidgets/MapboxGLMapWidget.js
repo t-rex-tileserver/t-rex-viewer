@@ -25,14 +25,17 @@ class MapboxGLMapWidget extends Component {
           center: this.props.center,
           zoom: this.props.zoom
     });
-    this.map.on('moveend', this.storeExtent.bind(this)); 
+    this.map.on('moveend', this.storeExtent.bind(this));
+    if (this.props.bounds !== null) {
+      var bnd = this.props.bounds;
+      this.map.fitBounds([[bnd[0], bnd[1]], [bnd[2], bnd[3]]], {linear: true, padding: 10});
+    }
   }
 
   componentDidUpdate() {
     if(this.props.activeTileset === this.loadedTileset) {
       return;
     }
-    var self = this;
     this.loadedTileset = this.props.activeTileset;
     if(!this.props.activeTileset) {
       return;
@@ -41,7 +44,9 @@ class MapboxGLMapWidget extends Component {
   }
 
   storeExtent(e) {
-    this.props.storeExtent(this.map.getCenter().toArray(), this.map.getZoom());
+    var bnd = this.map.getBounds().toArray();
+    this.props.storeExtent(bnd[0].concat(bnd[1]),
+      this.map.getCenter().toArray(), this.map.getZoom());
  }
 }
 

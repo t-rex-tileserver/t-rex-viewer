@@ -15,6 +15,7 @@ class App extends Component {
       tilesets: [],
       tileset: null,
       viewer: 'Info',
+      bounds: null,
       center: [0, 0],
       zoom: 2
     };
@@ -39,19 +40,22 @@ class App extends Component {
   populateTileList(object) {
     this.setState({tilesets: object.tilesets});
     if (object.tilesets.length > 0) {
-      this.setState({tileset: object.tilesets[0].name});
+      this.setTileset(object.tilesets[0].name);
     }
   }
 
   setTileset(tileset) {
-    this.setState({center: [0, 0], zoom: 2, tileset: tileset});
+    this.setState({tileset: tileset});
+    var bnd = this.state.tilesets.find(t => t.name === tileset).bounds;
+    if (bnd) this.setState({bounds: bnd});
   }
 
   setViewer(viewer) {
     this.setState({viewer: viewer});
   }
 
-  storeExtent(center, zoom) {
+  storeExtent(bounds, center, zoom) {
+    if (bounds !== null) this.setState({bounds: bounds});
     this.setState({center: center, zoom: zoom});
   }
 
@@ -61,21 +65,25 @@ class App extends Component {
     } else if(this.state.viewer === 'Mapbox GL') {
       return (<MapboxGLMapWidget activeTileset={this.state.tileset}
                                    storeExtent={this.storeExtent.bind(this)}
+                                   bounds={this.state.bounds}
                                    center={this.state.center}
                                    zoom={this.state.zoom}/>);
     } else if(this.state.viewer === 'OpenLayers') {
       return (<OpenLayersMapWidget activeTileset={this.state.tileset}
                                    storeExtent={this.storeExtent.bind(this)}
+                                   bounds={this.state.bounds}
                                    center={this.state.center}
                                    zoom={this.state.zoom}/>);
     } else if(this.state.viewer === 'X-Ray') {
       return (<XRayMapWidget activeTileset={this.state.tileset}
                              storeExtent={this.storeExtent.bind(this)}
+                             bounds={this.state.bounds}
                              center={this.state.center}
                              zoom={this.state.zoom}/>);
     } else if(this.state.viewer === 'Inspector') {
       return (<InspectorMapWidget activeTileset={this.state.tileset}
                              storeExtent={this.storeExtent.bind(this)}
+                             bounds={this.state.bounds}
                              center={this.state.center}
                              zoom={this.state.zoom}/>);
     }

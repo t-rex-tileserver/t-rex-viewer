@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './OpenLayersMapWidget.css';
 import Map from 'ol/map';
 import View from 'ol/view';
 import VectorTile from 'ol/layer/vectortile';
@@ -7,6 +6,7 @@ import VectorTileSource from 'ol/source/vectortile';
 import MVT from 'ol/format/mvt';
 import tilegrid from 'ol/tilegrid';
 import proj from 'ol/proj';
+import './OpenLayersMapWidget.css';
 
 class OpenLayersMapWidget extends Component {
 
@@ -59,17 +59,30 @@ class OpenLayersMapWidget extends Component {
       })
     });
     this.map.addLayer(layer);
-    this.map.setView(new View({
-      center: proj.fromLonLat(this.props.center),
-      zoom: this.props.zoom
-    }));
+    if (this.props.bounds !== null) {
+      this.map.getView().fit(boundsFromLonLat(this.props.bounds), {padding: [10, 10, 10, 10]});
+    }
   }
 
   storeExtent(e) {
-    var ll = proj.toLonLat(this.map.getView().getCenter());
-    this.props.storeExtent(ll, this.map.getView().getZoom());
- }
+    var extent = this.map.getView().calculateExtent(this.map.getSize());
+    var center = proj.toLonLat(this.map.getView().getCenter());
+    this.props.storeExtent(boundsToLonLat(extent), center, this.map.getView().getZoom());
+  }
 
 }
+
+export function boundsToLonLat(extent) {
+    var min_ll = proj.toLonLat([extent[0], extent[1]]);
+    var max_ll = proj.toLonLat([extent[2], extent[3]]);
+    return min_ll.concat(max_ll);
+}
+
+export function boundsFromLonLat(extent) {
+    var minxy = proj.fromLonLat([extent[0], extent[1]]);
+    var maxxy = proj.fromLonLat([extent[2], extent[3]]);
+    return minxy.concat(maxxy);
+}
+
 
 export default OpenLayersMapWidget;

@@ -6,6 +6,7 @@ import VectorTileSource from 'ol/source/vectortile';
 import MVT from 'ol/format/mvt';
 import tilegrid from 'ol/tilegrid';
 import proj from 'ol/proj';
+import {boundsFromLonLat, boundsToLonLat} from './OpenLayersMapWidget';
 import './XRayMapWidget.css';
 
 class XRayMapWidget extends Component {
@@ -36,6 +37,9 @@ class XRayMapWidget extends Component {
     });
     this.map.on('pointermove', this.fetchAttributes.bind(this));
     this.map.on('postrender', this.storeExtent.bind(this));
+    if (this.props.bounds !== null) {
+      this.map.getView().fit(boundsFromLonLat(this.props.bounds), {padding: [10, 10, 10, 10]});
+    }
     this.updateMap();
   }
 
@@ -103,9 +107,10 @@ class XRayMapWidget extends Component {
   }
 
   storeExtent(e) {
-    var ll = proj.toLonLat(this.map.getView().getCenter());
-    this.props.storeExtent(ll, this.map.getView().getZoom());
- }
+    var extent = this.map.getView().calculateExtent(this.map.getSize());
+    var center = proj.toLonLat(this.map.getView().getCenter());
+    this.props.storeExtent(boundsToLonLat(extent), center, this.map.getView().getZoom());
+  }
 }
 
 export default XRayMapWidget;
