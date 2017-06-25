@@ -61,13 +61,16 @@ class App extends Component {
 
   renderMapWidget() {
     if(this.state.viewer === 'Info') {
-      return (<InfoWidget tilesets={this.state.tilesets} activeTileset={this.state.tileset}/>);
+      return (<InfoWidget tilesets={this.state.tilesets}
+                          activeTileset={this.state.tileset}
+                          center={this.state.center}
+                          zoom={this.state.zoom}/>);
     } else if(this.state.viewer === 'Mapbox GL') {
       return (<MapboxGLMapWidget activeTileset={this.state.tileset}
-                                   storeExtent={this.storeExtent.bind(this)}
-                                   bounds={this.state.bounds}
-                                   center={this.state.center}
-                                   zoom={this.state.zoom}/>);
+                                 storeExtent={this.storeExtent.bind(this)}
+                                 bounds={this.state.bounds}
+                                 center={this.state.center}
+                                 zoom={this.state.zoom}/>);
     } else if(this.state.viewer === 'OpenLayers') {
       return (<OpenLayersMapWidget activeTileset={this.state.tileset}
                                    storeExtent={this.storeExtent.bind(this)}

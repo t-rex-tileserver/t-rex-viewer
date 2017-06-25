@@ -69,6 +69,7 @@ class InfoWidget extends Component {
   }
 
   snippet_mbgl(styleurl) {
+    var center = this.props.center;
     return `<!DOCTYPE html>
 <html>
   <head>
@@ -88,8 +89,8 @@ class InfoWidget extends Component {
       var map = new mapboxgl.Map({
           container: 'map',
           style: '${styleurl}',
-          center: [0, 0],
-          zoom: 2
+          center: [${center[0]},${center[1]}],
+          zoom: ${this.props.zoom}
       });
     </script>
   </body>
@@ -98,13 +99,14 @@ class InfoWidget extends Component {
   }
 
   snippet_openlayers(pbfurl, styleurl) {
+    var center = this.props.center;
     return `<!DOCTYPE html>
 <html>
   <head>
     <title></title>
-    <link rel="stylesheet" href="https://openlayers.org/en/v4.0.1/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.2.0/css/ol.css" type="text/css">
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-    <script src="https://openlayers.org/en/v4.0.1/build/ol.js"></script>
+    <script src="https://openlayers.org/en/v4.2.0/build/ol.js"></script>
   </head>
   <body>
     <div id="map" class="map"></div>
@@ -122,8 +124,8 @@ class InfoWidget extends Component {
         ],
         target: 'map',
         view: new ol.View({
-          center: [0, 0],
-          zoom: 2
+          center: [${center[0]},${center[1]}],
+          zoom: ${this.props.zoom}
         })
       });
     </script>
