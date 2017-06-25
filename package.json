@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.7.0"
+    "react-scripts": "1.0.7"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "jsdoc": "^3.4.2",
     "mapbox-gl": "0.38.0",
     "openlayers": "^3.19.1",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "scripts": {
     "start": "react-scripts start",
