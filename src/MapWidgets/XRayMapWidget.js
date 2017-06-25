@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import Map from 'ol/map';
+import View from 'ol/view';
+import VectorTile from 'ol/layer/vectortile';
+import VectorTileSource from 'ol/source/vectortile';
+import MVT from 'ol/format/mvt';
+import tilegrid from 'ol/tilegrid';
+import proj from 'ol/proj';
 import './XRayMapWidget.css';
-var ol = require('openlayers/build/ol-custom');
 
 class XRayMapWidget extends Component {
 
@@ -20,11 +26,11 @@ class XRayMapWidget extends Component {
   }
 
   componentDidMount() {
-    this.map = new ol.Map({
+    this.map = new Map({
       layers: [],
       target: this.refs.MapWidget,
-      view: new ol.View({
-        center: ol.proj.fromLonLat(this.props.center),
+      view: new View({
+        center: proj.fromLonLat(this.props.center),
         zoom: this.props.zoom
       })
     });
@@ -55,11 +61,11 @@ class XRayMapWidget extends Component {
   }
 
   initMap(data) {
-    var layer = new ol.layer.VectorTile({
+    var layer = new VectorTile({
       preload: Infinity,
-      source: new ol.source.VectorTile({
-        format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
+      source: new VectorTileSource({
+        format: new MVT(),
+        tileGrid: new tilegrid.createXYZ({
           minZoom: data.minzoom,
           maxZoom: data.maxzoom
         }),
@@ -68,8 +74,8 @@ class XRayMapWidget extends Component {
       })
     });
     this.map.addLayer(layer);
-    this.map.setView(new ol.View({
-      center: ol.proj.fromLonLat(this.props.center),
+    this.map.setView(new View({
+      center: proj.fromLonLat(this.props.center),
       zoom: this.props.zoom
     }));
   }
@@ -97,7 +103,7 @@ class XRayMapWidget extends Component {
   }
 
   storeExtent(e) {
-    var ll = ol.proj.toLonLat(this.map.getView().getCenter());
+    var ll = proj.toLonLat(this.map.getView().getCenter());
     this.props.storeExtent(ll, this.map.getView().getZoom());
  }
 }

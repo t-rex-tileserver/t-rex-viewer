@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-import 'openlayers/dist/ol.css';
+import 'ol/ol.css'
 
 ReactDOM.render(
   <App />,

@@ -1,15 +1,14 @@
 {
   "name": "t-rex-viewer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "1.0.7"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "jsdoc": "^3.4.2",
     "mapbox-gl": "0.38.0",
-    "openlayers": "^3.19.1",
+    "ol": "^4.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
@@ -17,7 +16,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "build-ol": "node node_modules/openlayers/tasks/build.js ol-custom.json node_modules/openlayers/build/ol-custom.js"
+    "eject": "react-scripts eject"
   }
 }

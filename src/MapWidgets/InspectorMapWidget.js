@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import Map from 'ol/map';
+import View from 'ol/view';
+import VectorTile from 'ol/layer/vectortile';
+import Tile from 'ol/layer/tile';
+import TileDebug from 'ol/source/tiledebug';
+import VectorTileSource from 'ol/source/vectortile';
+import MVT from 'ol/format/mvt';
+import tilegrid from 'ol/tilegrid';
+import proj from 'ol/proj';
 import './InspectorMapWidget.css';
-var ol = require('openlayers/build/ol-custom');
 
 class InspectorMapWidget extends Component {
 
@@ -27,15 +35,15 @@ class InspectorMapWidget extends Component {
   }
 
   componentDidMount() {
-    this.map = new ol.Map({
+    this.map = new Map({
       layers: [],
       target: this.refs.MapWidget,
-      view: new ol.View({
-        center: ol.proj.fromLonLat(this.props.center),
+      view: new View({
+        center: proj.fromLonLat(this.props.center),
         zoom: this.props.zoom
       })
     });
-    this.tilegrid = ol.tilegrid.createXYZ();
+    this.tilegrid = tilegrid.createXYZ();
     this.map.on('click', this.fetchInspectAttributes.bind(this));
     this.map.on('postrender', this.storeExtent.bind(this));
     this.updateMap();
@@ -64,11 +72,11 @@ class InspectorMapWidget extends Component {
   }
 
   initMap(data) {
-    this.layer = new ol.layer.VectorTile({
+    this.layer = new VectorTile({
       preload: Infinity,
-      source: new ol.source.VectorTile({
-        format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
+      source: new VectorTileSource({
+        format: new MVT(),
+        tileGrid: new tilegrid.createXYZ({
           minZoom: data.minzoom,
           maxZoom: data.maxzoom
         }),
@@ -77,16 +85,16 @@ class InspectorMapWidget extends Component {
       })
     });
     this.map.addLayer(this.layer);
-    var tileDebugLayer = new ol.layer.Tile({
-      source: new ol.source.TileDebug({
+    var tileDebugLayer = new Tile({
+      source: new TileDebug({
         projection: 'EPSG:3857',
         tileGrid: this.tilegrid
       })
     });
     this.map.addLayer(tileDebugLayer);
 
-    this.map.setView(new ol.View({
-      center: ol.proj.fromLonLat(this.props.center),
+    this.map.setView(new View({
+      center: proj.fromLonLat(this.props.center),
       zoom: this.props.zoom
     }));
   }
@@ -98,14 +106,14 @@ class InspectorMapWidget extends Component {
     var tilecoord = this.tilegrid.getTileCoordForCoordAndResolution(
       e.coordinate, this.map.getView().getResolution());
     var tileUrlFunction = this.layer.getSource().getTileUrlFunction();
-    var url = tileUrlFunction(tilecoord, 1, ol.proj.get('EPSG:3857'));
+    var url = tileUrlFunction(tilecoord, 1, proj.get('EPSG:3857'));
     fetch(url)
       .then(function(response){ return response.arrayBuffer() })
       .then(function(buffer){ this.parseInspectAttributes(buffer, tilecoord); }.bind(this));
   }
 
   parseInspectAttributes(buffer, tilecoord) {
-    var format = new ol.format.MVT();
+    var format = new MVT();
     var features = format.readFeatures(buffer);
     var layers = {};
     var layerFeatureCounts = {};
@@ -181,7 +189,7 @@ class InspectorMapWidget extends Component {
   }
 
   storeExtent(e) {
-    var ll = ol.proj.toLonLat(this.map.getView().getCenter());
+    var ll = proj.toLonLat(this.map.getView().getCenter());
     this.props.storeExtent(ll, this.map.getView().getZoom());
  }
 }
