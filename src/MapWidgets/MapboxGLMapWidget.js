@@ -25,6 +25,7 @@ class MapboxGLMapWidget extends Component {
           center: this.props.center,
           zoom: this.props.zoom
     });
+    this.map.addControl(new mapboxgl.NavigationControl());
     this.map.on('moveend', this.storeExtent.bind(this));
     if (this.props.bounds !== null) {
       var bnd = this.props.bounds;
