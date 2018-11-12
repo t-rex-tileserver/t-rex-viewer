@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './MapboxGLMapWidget.css';
-var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+import mapboxgl from 'mapbox-gl';
 
 class MapboxGLMapWidget extends Component {
 
