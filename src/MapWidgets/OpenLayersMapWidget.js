@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Map from 'ol/map';
-import View from 'ol/view';
-import VectorTile from 'ol/layer/vectortile';
-import VectorTileSource from 'ol/source/vectortile';
-import MVT from 'ol/format/mvt';
-import tilegrid from 'ol/tilegrid';
-import proj from 'ol/proj';
+import {Map, View} from 'ol';
+import VectorTile from 'ol/layer/VectorTile';
+import VectorTileSource from 'ol/source/VectorTile';
+import MVT from 'ol/format/MVT';
+//import {createXYZ} from 'ol/tilegrid';
+import {fromLonLat, toLonLat} from 'ol/proj';
 import './OpenLayersMapWidget.css';
+import 'ol/ol.css';
 
 class OpenLayersMapWidget extends Component {
 
@@ -26,7 +26,7 @@ class OpenLayersMapWidget extends Component {
       layers: [],
       target: this.refs.MapWidget,
       view: new View({
-        center: proj.fromLonLat(this.props.center),
+        center: fromLonLat(this.props.center),
         zoom: this.props.zoom,
       })
     });
@@ -53,7 +53,7 @@ class OpenLayersMapWidget extends Component {
     var layer = new VectorTile({
       source: new VectorTileSource({
         format: new MVT(),
-        tileGrid: tilegrid.createXYZ({maxZoom: 22}),
+        //tileGrid: createXYZ({maxZoom: 22}),
         tilePixelRatio: 16,
         url: 'http://127.0.0.1:6767/' + this.props.activeTileset + '/{z}/{x}/{y}.pbf'
       })
@@ -66,21 +66,21 @@ class OpenLayersMapWidget extends Component {
 
   storeExtent(e) {
     var extent = this.map.getView().calculateExtent(this.map.getSize());
-    var center = proj.toLonLat(this.map.getView().getCenter());
+    var center = toLonLat(this.map.getView().getCenter());
     this.props.storeExtent(boundsToLonLat(extent), center, this.map.getView().getZoom());
   }
 
 }
 
 export function boundsToLonLat(extent) {
-    var min_ll = proj.toLonLat([extent[0], extent[1]]);
-    var max_ll = proj.toLonLat([extent[2], extent[3]]);
+    var min_ll = toLonLat([extent[0], extent[1]]);
+    var max_ll = toLonLat([extent[2], extent[3]]);
     return min_ll.concat(max_ll);
 }
 
 export function boundsFromLonLat(extent) {
-    var minxy = proj.fromLonLat([extent[0], extent[1]]);
-    var maxxy = proj.fromLonLat([extent[2], extent[3]]);
+    var minxy = fromLonLat([extent[0], extent[1]]);
+    var maxxy = fromLonLat([extent[2], extent[3]]);
     return minxy.concat(maxxy);
 }
 

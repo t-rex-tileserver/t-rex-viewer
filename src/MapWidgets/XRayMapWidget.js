@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Map from 'ol/map';
-import View from 'ol/view';
-import VectorTile from 'ol/layer/vectortile';
-import VectorTileSource from 'ol/source/vectortile';
-import MVT from 'ol/format/mvt';
-import tilegrid from 'ol/tilegrid';
-import proj from 'ol/proj';
+import {Map, View} from 'ol';
+import VectorTile from 'ol/layer/VectorTile';
+import VectorTileSource from 'ol/source/VectorTile';
+import MVT from 'ol/format/MVT';
+import {createXYZ} from 'ol/tilegrid';
+import {fromLonLat, toLonLat} from 'ol/proj';
 import {boundsFromLonLat, boundsToLonLat} from './OpenLayersMapWidget';
 import './XRayMapWidget.css';
 
@@ -31,7 +30,7 @@ class XRayMapWidget extends Component {
       layers: [],
       target: this.refs.MapWidget,
       view: new View({
-        center: proj.fromLonLat(this.props.center),
+        center: fromLonLat(this.props.center),
         zoom: this.props.zoom
       })
     });
@@ -69,7 +68,7 @@ class XRayMapWidget extends Component {
       preload: Infinity,
       source: new VectorTileSource({
         format: new MVT(),
-        tileGrid: new tilegrid.createXYZ({
+        tileGrid: new createXYZ({
           minZoom: data.minzoom,
           maxZoom: data.maxzoom
         }),
@@ -79,7 +78,7 @@ class XRayMapWidget extends Component {
     });
     this.map.addLayer(layer);
     this.map.setView(new View({
-      center: proj.fromLonLat(this.props.center),
+      center: fromLonLat(this.props.center),
       zoom: this.props.zoom
     }));
   }
@@ -108,7 +107,7 @@ class XRayMapWidget extends Component {
 
   storeExtent(e) {
     var extent = this.map.getView().calculateExtent(this.map.getSize());
-    var center = proj.toLonLat(this.map.getView().getCenter());
+    var center = toLonLat(this.map.getView().getCenter());
     this.props.storeExtent(boundsToLonLat(extent), center, this.map.getView().getZoom());
   }
 }

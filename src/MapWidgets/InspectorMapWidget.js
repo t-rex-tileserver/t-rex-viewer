@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Map from 'ol/map';
-import View from 'ol/view';
-import VectorTile from 'ol/layer/vectortile';
-import Tile from 'ol/layer/tile';
-import TileDebug from 'ol/source/tiledebug';
-import VectorTileSource from 'ol/source/vectortile';
-import MVT from 'ol/format/mvt';
-import tilegrid from 'ol/tilegrid';
-import proj from 'ol/proj';
+import {Map, View} from 'ol';
+import VectorTile from 'ol/layer/VectorTile';
+import Tile from 'ol/layer/Tile';
+import TileDebug from 'ol/source/TileDebug';
+import VectorTileSource from 'ol/source/VectorTile';
+import MVT from 'ol/format/MVT';
+import {createXYZ} from 'ol/tilegrid';
+import {fromLonLat, toLonLat, tileUrlFunction} from 'ol/proj';
 import {boundsFromLonLat, boundsToLonLat} from './OpenLayersMapWidget';
 import './InspectorMapWidget.css';
 
@@ -40,11 +39,11 @@ class InspectorMapWidget extends Component {
       layers: [],
       target: this.refs.MapWidget,
       view: new View({
-        center: proj.fromLonLat(this.props.center),
+        center: fromLonLat(this.props.center),
         zoom: this.props.zoom
       })
     });
-    this.tilegrid = tilegrid.createXYZ();
+    this.tilegrid = createXYZ();
     this.map.on('click', this.fetchInspectAttributes.bind(this));
     this.map.on('postrender', this.storeExtent.bind(this));
     if (this.props.bounds !== null) {
@@ -80,7 +79,7 @@ class InspectorMapWidget extends Component {
       preload: Infinity,
       source: new VectorTileSource({
         format: new MVT(),
-        tileGrid: new tilegrid.createXYZ({
+        tileGrid: new createXYZ({
           minZoom: data.minzoom,
           maxZoom: data.maxzoom
         }),
@@ -98,7 +97,7 @@ class InspectorMapWidget extends Component {
     this.map.addLayer(tileDebugLayer);
 
     this.map.setView(new View({
-      center: proj.fromLonLat(this.props.center),
+      center: fromLonLat(this.props.center),
       zoom: this.props.zoom
     }));
   }
@@ -110,7 +109,7 @@ class InspectorMapWidget extends Component {
     var tilecoord = this.tilegrid.getTileCoordForCoordAndResolution(
       e.coordinate, this.map.getView().getResolution());
     var tileUrlFunction = this.layer.getSource().getTileUrlFunction();
-    var url = tileUrlFunction(tilecoord, 1, proj.get('EPSG:3857'));
+    var url = tileUrlFunction(tilecoord, 1, get('EPSG:3857'));
     fetch(url)
       .then(function(response){ return response.arrayBuffer() })
       .then(function(buffer){ this.parseInspectAttributes(buffer, tilecoord); }.bind(this));
@@ -194,7 +193,7 @@ class InspectorMapWidget extends Component {
 
   storeExtent(e) {
     var extent = this.map.getView().calculateExtent(this.map.getSize());
-    var center = proj.toLonLat(this.map.getView().getCenter());
+    var center = toLonLat(this.map.getView().getCenter());
     this.props.storeExtent(boundsToLonLat(extent), center, this.map.getView().getZoom());
   }
 }
