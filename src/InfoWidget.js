@@ -103,8 +103,8 @@ class InfoWidget extends Component {
     return `<!DOCTYPE html>
 <html>
   <head>
+    <meta charset='utf-8' />
     <title></title>
-    <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
