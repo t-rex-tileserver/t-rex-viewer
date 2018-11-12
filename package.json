@@ -1,21 +1,25 @@
 {
   "name": "t-rex-viewer",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "devDependencies": {
-    "react-scripts": "1.0.7"
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
   "dependencies": {
     "classnames": "^2.2.5",
     "mapbox-gl": "0.38.0",
     "ol": "^4.2.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-hot-loader": "^4.3.11"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "parcel-bundler": "^1.10.3"
   }
 }

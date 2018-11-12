@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import './index.css';
+import 'ol/ol.css';
 import TileList from './TileList';
 import InfoWidget from './InfoWidget';
 import MapboxGLMapWidget from './MapWidgets/MapboxGLMapWidget';
