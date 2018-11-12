@@ -3,7 +3,7 @@ import {Map, View} from 'ol';
 import VectorTile from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
 import MVT from 'ol/format/MVT';
-//import {createXYZ} from 'ol/tilegrid';
+import {createXYZ} from 'ol/tilegrid';
 import {fromLonLat, toLonLat} from 'ol/proj';
 import './OpenLayersMapWidget.css';
 import 'ol/ol.css';
@@ -53,7 +53,7 @@ class OpenLayersMapWidget extends Component {
     var layer = new VectorTile({
       source: new VectorTileSource({
         format: new MVT(),
-        //tileGrid: createXYZ({maxZoom: 22}),
+        tileGrid: createXYZ({minZoom: 0, maxZoom: 22}),
         tilePixelRatio: 16,
         url: 'http://127.0.0.1:6767/' + this.props.activeTileset + '/{z}/{x}/{y}.pbf'
       })
