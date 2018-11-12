@@ -1,7 +1,7 @@
 t-rex viewer
 ============
 
-Backend with vector tile viewer for (t-rex)[https://github.com/t-rex-tileserver/t-rex]
+[t-rex](https://github.com/t-rex-tileserver/t-rex) backend application with vector tile viewer
 
 
 Usage
