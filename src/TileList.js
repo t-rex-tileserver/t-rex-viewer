@@ -13,15 +13,15 @@ class TileList extends Component {
     var title = this.props.activeTileset ? "Tile sets:" : "Select tile set:";
     return (
       <div className="TileList">
-      <div className="TileListTitle">{title}</div>
-      {this.renderTileListEntries()}
+        <div className="TileListTitle">{title}</div>
+        {this.renderTileListEntries()}
       </div>
     );
   }
 
   renderTileListEntries() {
     return this.props.tilesets.map(entry => (
-      <TileListEntry name={entry.name} layers={entry.layers} activeTileset={this.props.activeTileset} setTileset={this.props.setTileset} />
+      <TileListEntry key={entry.name} name={entry.name} layers={entry.layers} activeTileset={this.props.activeTileset} setTileset={this.props.setTileset} />
     ));
   }
 

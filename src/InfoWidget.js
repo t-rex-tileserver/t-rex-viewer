@@ -38,28 +38,28 @@ class InfoWidget extends Component {
     return (
       <div className="InfoWidget">
         <h2>Tileset: {tsname}</h2>
-        <p>Layers:
+        <div>Layers:
           <ul>
           {layers.map(entry =>
-            (<li>{entry.name} ({entry.geometry_type})</li>)
+            (<li key={entry.name}>{entry.name} ({entry.geometry_type})</li>)
           )}
           </ul>
-        </p>
-        <p>Endpoints:
+        </div>
+        <div>Endpoints:
           <ul>
           <li>Tiles: <code>{pbfurl}</code></li>
           <li>Style JSON: <a href={styleurl}>{styleurl}</a></li>
           <li>TileJSON: <a href={tilejsonurl}>{tilejsonurl}</a></li>
           <li>Style map with <a href={maputnikurl} target="maputnik">Maputnik</a></li>
           </ul>
-        </p>
-        <p>Snippets:
+        </div>
+        <div>Snippets:
           <ul>
           <li><a href="#" onClick={this.setViewer.bind(this, 'mbgl')}>MapBox GL JS</a></li>
           <li><a href="#" onClick={this.setViewer.bind(this, 'openlayers')}>OpenLayers</a></li>
           </ul>
           <CodeWidget code={codeString}/>
-        </p>
+        </div>
       </div>
     )
   }
