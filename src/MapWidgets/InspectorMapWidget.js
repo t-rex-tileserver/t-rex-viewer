@@ -6,7 +6,7 @@ import TileDebug from 'ol/source/TileDebug';
 import VectorTileSource from 'ol/source/VectorTile';
 import MVT from 'ol/format/MVT';
 import {createXYZ} from 'ol/tilegrid';
-import {fromLonLat, toLonLat, tileUrlFunction} from 'ol/proj';
+import {fromLonLat, toLonLat, tileUrlFunction, get as getProj} from 'ol/proj';
 import {boundsFromLonLat, boundsToLonLat} from './OpenLayersMapWidget';
 import './InspectorMapWidget.css';
 
@@ -109,7 +109,7 @@ class InspectorMapWidget extends Component {
     var tilecoord = this.tilegrid.getTileCoordForCoordAndResolution(
       e.coordinate, this.map.getView().getResolution());
     var tileUrlFunction = this.layer.getSource().getTileUrlFunction();
-    var url = tileUrlFunction(tilecoord, 1, get('EPSG:3857'));
+    var url = tileUrlFunction(tilecoord, 1, getProj('EPSG:3857'));
     fetch(url)
       .then(function(response){ return response.arrayBuffer() })
       .then(function(buffer){ this.parseInspectAttributes(buffer, tilecoord); }.bind(this));
