@@ -28,6 +28,9 @@ class InfoWidget extends Component {
     var styleurl = pbfbaseurl + tsname + '.style.json';
     var tilejsonurl = pbfbaseurl + tsname + '.json';
     var maputnikurl = 'http://127.0.0.1:6767/maputnik.html?style=' + styleurl;
+    if (this.props.zoom && this.props.center) {
+      maputnikurl += '#' + this.props.zoom + '/' + this.props.center[1] + '/' + this.props.center[0]
+    }
     var tileset = this.props.tilesets.filter(function(ts) {
       return (ts.name === tsname);
     });
