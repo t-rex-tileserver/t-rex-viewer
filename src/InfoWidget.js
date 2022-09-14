@@ -125,7 +125,7 @@ class InfoWidget extends Component {
         ],
         target: 'map',
         view: new ol.View({
-          center: [${center[0]},${center[1]}],
+          center: ol.proj.fromLonLat([${center[0]},${center[1]}]),
           zoom: ${this.props.zoom}
         })
       });
